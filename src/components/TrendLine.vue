@@ -11,12 +11,11 @@ export default {
         data: Object
     },
     data: () => ({
-        points: [{x:0, y: 10}, {x:1, y:15}, {x:2, y:35}, {x:3, y:20}]
     }),
     methods: {
         drawLine: function () {
             var ctx = this.$refs.line_chart
-            let new_data = this.data
+            let new_data = this.curData
 
             new Chart(ctx, {
                 type: 'line',
@@ -40,14 +39,15 @@ export default {
     mounted: function() {
         this.drawLine()
     },
+    computed: {
+        curData: function() {
+            return this.data
+        }
+    },
     watch: {
-        $props: {
-            handler() {
-                this.drawLine();
-            },
-            deep: true,
-            immediate: true,
-        },
+        curData: function() {
+            this.drawLine();
+        }
     }
 }
 

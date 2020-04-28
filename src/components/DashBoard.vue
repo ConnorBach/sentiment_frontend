@@ -24,7 +24,7 @@
             <TrendLine :data="propsLineData"></TrendLine>
           </v-col>
           <v-col>
-            <PieChart :data="propsPieData"></PieChart>
+            <PieChart :isDelta="isDelta" :data="propsPieData"></PieChart>
           </v-col>
         </v-row>
     </v-content>
