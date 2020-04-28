@@ -1,6 +1,7 @@
 <template>
     <div>
-        <canvas width="50" height="50" ref="pie_chart"></canvas>    
+        <canvas v-if="!loading" width="50" height="50" ref="pie_chart"></canvas>    
+        <v-progress-circular v-else color="blue" indeterminate></v-progress-circular>
     </div>
 </template>
 
@@ -14,7 +15,8 @@ export default {
     },
     data: function() {
         return {
-            pieData: {}
+            pieData: {},
+            loading: false
         }
     },
     methods: {
@@ -50,6 +52,7 @@ export default {
             });
         },
         getData: async function() {
+            this.loading = true;
             await fetch('http://127.0.0.1:5000/?query=' + this.queryString)
             .then((response) => {
                 console.log(response)
@@ -68,6 +71,7 @@ export default {
                 this.pieData = new_data
                 return new_data
             })
+            this.loading = false
         },
         refresh: async function() {
             await this.getData()
